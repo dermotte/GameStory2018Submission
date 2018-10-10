@@ -7,7 +7,8 @@ import json
 import math
 import os
 
-data_path = "/home/mlux/Temp/gamestory18-data/train_set/"
+#data_path = "/home/mlux/Temp/gamestory18-data/train_set/"
+data_path = "/home/mlux/tmp/gamestory/gamestory18-data/train_set/"
 
 # know data ... without loss of generality (w.l.o.g.)
 teams2players = {
@@ -175,50 +176,53 @@ vid = "2018-03-04_P10.mp4"
 print(rounds[0]['date'], utc2streamtime(vid, rounds[0]['date']))
 print(ffmpegcut(vid, utc2streamtime(vid, rounds[0]['date']), 60))
 
+## create ffmpeg cut list for kill streaks
+
 ## create cards:
-score = {"FaZe Clan": 0, "Fnatic": 0}
-for r in range(0, len(rounds)):
-    score[rounds[r]['team']] += 1
-    round = str(r+1)
-    team_win = rounds[r]['team']
-    team_a = "FaZe Clan"
-    team_b = "Fnatic"
-    eco_a = str(economy[r][team_a])
-    eco_b = str(economy[r][team_b])
-    curr_score = "{}-{}".format(score["FaZe Clan"], score["Fnatic"])
-    streak_a = ""
-    streak_b = ""
+if not 1:
+    score = {"FaZe Clan": 0, "Fnatic": 0}
+    for r in range(0, len(rounds)):
+        score[rounds[r]['team']] += 1
+        round = str(r+1)
+        team_win = rounds[r]['team']
+        team_a = "FaZe Clan"
+        team_b = "Fnatic"
+        eco_a = str(economy[r][team_a])
+        eco_b = str(economy[r][team_b])
+        curr_score = "{}-{}".format(score["FaZe Clan"], score["Fnatic"])
+        streak_a = ""
+        streak_b = ""
 
-    # finding the kill streaks
-    for i in range(0, len(streaks)):
-        for player in streaks[i].keys():
-            if len(streaks[i][player]) > 2:
-                if i == r:  # it's the current round
-                    if player in teams2players[team_a]:
-                        streak_a = "{} kills {}".format(player, len(streaks[i][player]))
-                    else:
-                        streak_b = "{} kills {}".format(player, len(streaks[i][player]))
+        # finding the kill streaks
+        for i in range(0, len(streaks)):
+            for player in streaks[i].keys():
+                if len(streaks[i][player]) > 2:
+                    if i == r:  # it's the current round
+                        if player in teams2players[team_a]:
+                            streak_a = "{} kills {}".format(player, len(streaks[i][player]))
+                        else:
+                            streak_b = "{} kills {}".format(player, len(streaks[i][player]))
 
-    # re-reading the template file
-    with open('template.svg', 'r') as content_file:
-        svg_template = content_file.read()
+        # re-reading the template file
+        with open('template.svg', 'r') as content_file:
+            svg_template = content_file.read()
 
-    svg_template = svg_template.replace("{score}", curr_score)
-    svg_template = svg_template.replace("{round}", round)
-    svg_template = svg_template.replace("{team_win}", team_win)
-    svg_template = svg_template.replace("{team_a}", team_a)
-    svg_template = svg_template.replace("{team_b}", team_b)
-    svg_template = svg_template.replace("{eco_a}", eco_a)
-    svg_template = svg_template.replace("{eco_b}", eco_b)
-    svg_template = svg_template.replace("{streak_a}", streak_a)
-    svg_template = svg_template.replace("{streak_b}", streak_b)
-    print("Round {}, {} wins, {}".format(str(r+1), rounds[r]['team'], "{}-{}".format(score["FaZe Clan"], score["Fnatic"])))
-    with open("out/out-{:02d}.svg".format(r+1), 'w') as outsvg:
-        outsvg.write(svg_template)
+        svg_template = svg_template.replace("{score}", curr_score)
+        svg_template = svg_template.replace("{round}", round)
+        svg_template = svg_template.replace("{team_win}", team_win)
+        svg_template = svg_template.replace("{team_a}", team_a)
+        svg_template = svg_template.replace("{team_b}", team_b)
+        svg_template = svg_template.replace("{eco_a}", eco_a)
+        svg_template = svg_template.replace("{eco_b}", eco_b)
+        svg_template = svg_template.replace("{streak_a}", streak_a)
+        svg_template = svg_template.replace("{streak_b}", streak_b)
+        print("Round {}, {} wins, {}".format(str(r+1), rounds[r]['team'], "{}-{}".format(score["FaZe Clan"], score["Fnatic"])))
+        with open("out/out-{:02d}.svg".format(r+1), 'w') as outsvg:
+            outsvg.write(svg_template)
 
-    # converting to png
-    os.system("flatpak run org.inkscape.Inkscape out/out-{:02d}.svg --export-png out/out-{:02d}.png -b white".format(r+1, r+1))
+        # converting to png
+        os.system("flatpak run org.inkscape.Inkscape out/out-{:02d}.svg --export-png out/out-{:02d}.png -b white".format(r+1, r+1))
 
-os.system("rm out/out*.svg")
-os.system("convert +append ./out/out-{01..18}.png ./out/result/all1.png")
-os.system("convert +append ./out/out-{19..36}.png ./out/result/all2.png")
+    os.system("rm out/out*.svg")
+    os.system("convert +append ./out/out-{01..18}.png ./out/result/all1.png")
+    os.system("convert +append ./out/out-{19..36}.png ./out/result/all2.png")
