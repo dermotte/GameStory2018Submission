@@ -220,5 +220,5 @@ for r in range(0, len(rounds)):
     os.system("flatpak run org.inkscape.Inkscape out/out-{:02d}.svg --export-png out/out-{:02d}.png -b white".format(r+1, r+1))
 
 os.system("rm out/out*.svg")
-os.system("convert +append out/out-{01..18}.png out/result/all1.png")
-os.system("convert +append out/out-{19..36}.png out/result/all2.png")
+os.system("convert +append ./out/out-{01..18}.png ./out/result/all1.png")
+os.system("convert +append ./out/out-{19..36}.png ./out/result/all2.png")
