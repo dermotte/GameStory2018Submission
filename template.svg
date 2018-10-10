@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="480"
+   height="1080"
+   viewBox="0 0 127 285.75001"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.2 2405546, 2018-03-11"
+   sodipodi:docname="template.svg">
+  <defs
+     id="defs2">
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter75">
+      <feFlood
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood65" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite67" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="3"
+         result="blur"
+         id="feGaussianBlur69" />
+      <feOffset
+         dx="1"
+         dy="1"
+         result="offset"
+         id="feOffset71" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite73" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="-124.95408"
+     inkscape:cy="506.06238"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="3840"
+     inkscape:window-height="2058"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-11.249983)">
+    <rect
+       id="rect3750"
+       width="111.125"
+       height="269.875"
+       x="7.9375"
+       y="19.187483"
+       style="fill:#ffffff;stroke-width:0.45981035;filter:url(#filter75)" />
+    <flowRoot
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       id="flowRoot3752"><flowRegion
+         id="flowRegion3754"><use
+           x="0"
+           y="0"
+           xlink:href="#rect3750"
+           id="use3756"
+           width="100%"
+           height="100%" /></flowRegion><flowPara
+         id="flowPara3758"
+         style="text-align:center;text-anchor:middle"></flowPara><flowPara
+         style="text-align:center;text-anchor:middle"
+         id="flowPara77">Round: {round}</flowPara><flowPara
+         style="text-align:center;text-anchor:middle"
+         id="flowPara3782" /><flowPara
+         style="text-align:center;text-anchor:middle"
+         id="flowPara3784">{team_win} wins</flowPara><flowPara
+         style="text-align:center;text-anchor:middle"
+         id="flowPara3760" /><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle"
+         id="flowPara3762">{team_a} vs. {team_b}</flowPara><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.57777786px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle"
+         id="flowPara27">{score}</flowPara><flowPara
+         style="font-size:22.57777786px;text-align:center;text-anchor:middle"
+         id="flowPara3764" /><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:11.28888893px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start"
+         id="flowPara3766"> {team_a}:</flowPara><flowPara
+         style="font-size:11.28888893px;text-align:start;text-anchor:start"
+         id="flowPara3770"> {eco_a} $ spent</flowPara><flowPara
+         style="font-size:11.28888893px;text-align:start;text-anchor:start"
+         id="flowPara3772"> {streak_a}</flowPara><flowPara
+         style="font-size:11.28888893px;text-align:start;text-anchor:start"
+         id="flowPara3774" /><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:11.28888893px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start"
+         id="flowPara3776"> {team_b}:</flowPara><flowPara
+         style="font-size:11.28888893px;text-align:start;text-anchor:start"
+         id="flowPara3778"> {eco_b} $ spent</flowPara><flowPara
+         style="font-size:11.28888893px;text-align:start;text-anchor:start"
+         id="flowPara3780"> {streak_b}</flowPara><flowPara
+         style="font-size:11.28888893px;text-align:start;text-anchor:start"
+         id="flowPara3768" /></flowRoot>    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="13.79613"
+       y="99.507423"
+       id="text3742"><tspan
+         sodipodi:role="line"
+         id="tspan3740"
+         x="13.79613"
+         y="108.87119"
+         style="stroke-width:0.26458332" /></text>
+  </g>
+</svg>
