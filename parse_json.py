@@ -215,9 +215,17 @@ for i in range(0, len(streaks)):
                       length + 6, 'killstreak_round{:02d}_player_{}_kills_{}.mp4'.format(i+1, player, len(streaks[i][player]))))
 # analyze round ends ...
 vid = "2018-03-04_P11.mp4"  # P11 is the commentator
-for i in range(0, len(rounds)):
+for i in range(0, len(rounds)-1):
     print(ffmpegcut(data_path + vid, utc2streamtime(vid, rounds[i]['date'])-5, 10,
-                    'round_end_round{:02d}.mp4'.format(i+1)))
+                    'round_end_comments_round{:02d}.mp4'.format(i+1)))
+print(ffmpegcut(data_path + vid, utc2streamtime(vid, rounds[-1]['date'])-10, 30,
+                'round_end_comments_round{:02d}.mp4'.format(len(rounds))))
+
+# analyze round ends ...
+vid = "2018-03-04_P12.mp4"  # P12 is the map
+for i in range(0, len(rounds)):
+    os.system(ffmpegcut(data_path + vid, utc2streamtime(vid, rounds[i]['date'])-5, 10,
+                    'round_end_map_round{:02d}.mp4'.format(i+1)))
 
 vid = "2018-03-04_P10.mp4"
 print(rounds[0]['date'], utc2streamtime(vid, rounds[0]['date']))
