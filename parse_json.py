@@ -7,7 +7,7 @@ import json
 import math
 import os
 
-#data_path = "/home/mlux/Temp/gamestory18-data/train_set/"
+# data_path = "/home/mlux/Temp/gamestory18-data/train_set/"
 data_path = "/home/mlux/tmp/gamestory/gamestory18-data/train_set/"
 
 # know data ... without loss of generality (w.l.o.g.)
@@ -19,7 +19,7 @@ teamid2team = {
     '24a7a69c-4c71-4534-853d-31b6d0be1399': "FaZe Clan",
     '2d651b3b-8db9-4bb5-b3e1-c801050fc424': "Fnatic"
 }
-streams = {
+player2stream = {
     "Golden": "2018-03-04_P6.mp4",
     "GuardiaN": "2018-03-04_P1.mp4",
     "JW": "2018-03-04_P8.mp4",
@@ -119,14 +119,45 @@ def utc2streamtime(stream, utctime):
     # return t + (utc-utctime)
 
 
+def utc2timestring(utctime):
+    tmp_utc = utctime.split('T')[1]
+    tmp_utc = tmp_utc.split('.')[0]
+    return tmp_utc
+
+
+
+def timedifference(t1, t2):
+    """
+    get the difference between two time strings with the HH:MM:SS format in seconds
+    :param t1:
+    :param t2:
+    :return:
+    """
+    tt1 = timestring2seconds(t1)
+    tt2 = timestring2seconds(t2)
+    return abs(tt1 - tt2)
+
+
 def player2team(playerId):
     for k in teams2players.keys():
         if playerId in teams2players[k]:
             return k
 
+
 def ffmpegcut(video, timepoint, duration, outfile="out.mp4"):
-    cmd = "ffmpeg -ss {} -i {} -ss {} -t {} -c copy {}".format(seconds2timestring(timepoint-60), video, seconds2timestring(60), seconds2timestring(duration), outfile)
+    """
+    creates a cut command for ffmpeg
+    :param video: the input video (player, usw)
+    :param timepoint: in seconds
+    :param duration: in seconds
+    :param outfile: the output video file.
+    :return: a string to call ffmpeg
+    """
+    cmd = "ffmpeg -ss {} -i {} -ss {} -t {} -c copy {}".format(seconds2timestring(timepoint - 60), video,
+                                                               seconds2timestring(60), seconds2timestring(duration),
+                                                               outfile)
     return cmd
+
 
 ### main
 currentRound = 0
@@ -168,22 +199,39 @@ with open(data_path + 'timelines/11.json') as f:
 print(rounds)
 print(actions)
 print(economy)
+
+# analyze kill streaks ..
 for i in range(0, len(streaks)):
     for player in streaks[i].keys():
-        if len(streaks[i][player]) > 1:
-            print(i + 1, player, len(streaks[i][player]))
+        if len(streaks[i][player]) > 2:
+            length = timedifference(
+                utc2timestring(streaks[i][player][0]['date']),
+                utc2timestring(streaks[i][player][-1]['date']))
+            if length < len(streaks[i][player]) * 6:  # if the kill streak is within kills*6 seconds
+                # print(i + 1, player, len(streaks[i][player]), length)
+                # create cut list for kill streaks
+                print(ffmpegcut(data_path + player2stream[player],
+                      utc2streamtime(player2stream[player], streaks[i][player][0]['date']) -3,
+                      length + 6, 'killstreak_round{:02d}_player_{}_kills_{}.mp4'.format(i+1, player, len(streaks[i][player]))))
+# analyze round ends ...
+vid = "2018-03-04_P11.mp4"  # P11 is the commentator
+for i in range(0, len(rounds)):
+    print(ffmpegcut(data_path + vid, utc2streamtime(vid, rounds[i]['date'])-5, 10,
+                    'round_end_round{:02d}.mp4'.format(i+1)))
+
 vid = "2018-03-04_P10.mp4"
 print(rounds[0]['date'], utc2streamtime(vid, rounds[0]['date']))
-print(ffmpegcut(vid, utc2streamtime(vid, rounds[0]['date']), 60))
+# print(ffmpegcut(vid, utc2streamtime(vid, rounds[0]['date']), 60))
 
 ## create ffmpeg cut list for kill streaks
+# note: it's only 4 secs per card in the stats video
 
 ## create cards:
 if not 1:
     score = {"FaZe Clan": 0, "Fnatic": 0}
     for r in range(0, len(rounds)):
         score[rounds[r]['team']] += 1
-        round = str(r+1)
+        round = str(r + 1)
         team_win = rounds[r]['team']
         team_a = "FaZe Clan"
         team_b = "Fnatic"
@@ -216,12 +264,15 @@ if not 1:
         svg_template = svg_template.replace("{eco_b}", eco_b)
         svg_template = svg_template.replace("{streak_a}", streak_a)
         svg_template = svg_template.replace("{streak_b}", streak_b)
-        print("Round {}, {} wins, {}".format(str(r+1), rounds[r]['team'], "{}-{}".format(score["FaZe Clan"], score["Fnatic"])))
-        with open("out/out-{:02d}.svg".format(r+1), 'w') as outsvg:
+        print("Round {}, {} wins, {}".format(str(r + 1), rounds[r]['team'],
+                                             "{}-{}".format(score["FaZe Clan"], score["Fnatic"])))
+        with open("out/out-{:02d}.svg".format(r + 1), 'w') as outsvg:
             outsvg.write(svg_template)
 
         # converting to png
-        os.system("flatpak run org.inkscape.Inkscape out/out-{:02d}.svg --export-png out/out-{:02d}.png -b white".format(r+1, r+1))
+        os.system(
+            "flatpak run org.inkscape.Inkscape out/out-{:02d}.svg --export-png out/out-{:02d}.png -b white".format(
+                r + 1, r + 1))
 
     os.system("rm out/out*.svg")
     os.system("convert +append ./out/out-{01..18}.png ./out/result/all1.png")
