@@ -224,7 +224,7 @@ print(ffmpegcut(data_path + vid, utc2streamtime(vid, rounds[-1]['date'])-10, 30,
 # analyze round ends ...
 vid = "2018-03-04_P12.mp4"  # P12 is the map
 for i in range(0, len(rounds)):
-    os.system(ffmpegcut(data_path + vid, utc2streamtime(vid, rounds[i]['date'])-5, 10,
+    print(ffmpegcut(data_path + vid, utc2streamtime(vid, rounds[i]['date'])-5, 10,
                     'round_end_map_round{:02d}.mp4'.format(i+1)))
 
 vid = "2018-03-04_P10.mp4"
