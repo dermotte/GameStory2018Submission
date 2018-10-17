@@ -196,6 +196,11 @@ with open(data_path + 'timelines/11.json') as f:
         if d["type"] == "purchase":
             price = item2price[d["data"]["item"]]
             tmp_economy[player2team(d["data"]["actor"]["playerId"])] += price
+
+score = {"FaZe Clan": 0, "Fnatic": 0}
+for r in range(0, len(rounds)):
+    score[rounds[r]['team']] += 1
+    print("{}\t{}".format(score["FaZe Clan"], score["Fnatic"]))
 print(rounds)
 print(actions)
 print(economy)
@@ -213,6 +218,10 @@ for i in range(0, len(streaks)):
                 print(ffmpegcut(data_path + player2stream[player],
                       utc2streamtime(player2stream[player], streaks[i][player][0]['date']) -3,
                       length + 6, 'killstreak_round{:02d}_player_{}_kills_{}.mp4'.format(i+1, player, len(streaks[i][player]))))
+                # for k in stream2start.keys():  # print all streams for a particular event
+                #     print(ffmpegcut(data_path + k,
+                #           utc2streamtime(k, streaks[i][player][0]['date']) - 15,
+                #           length + 30, 'killstreak_round{:02d}_player_{}_kills_{}_{}.mp4'.format(i+1, player, len(streaks[i][player]), k.replace('.mp4', ''))))
 # analyze round ends ...
 vid = "2018-03-04_P11.mp4"  # P11 is the commentator
 for i in range(0, len(rounds)-1):
